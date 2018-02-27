@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>傻逼首页</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="public/index.css">
+    <script src="/public/index.js"></script>
+</head>
+<!--#E6E6E6-->
+<body style="background-color:#E6E6E6">
+<!--<div ><img  class="center-block"   src="/public/bg.jpg"  /></div>-->
+<div class="jumbotron" style="background-color:#EEEEEE;">
+    <h1 class="text-center">SuperBlog</h1>
+</div>
+<div style="margin-left: 20%;margin-right: 20%">
+    <ul id="myTab" class="nav nav-tabs nav-justified">
+
+        {%if category == ''%}
+        <li role="presentation" class="active">
+            <a href="/">
+                首页
+            </a>
+        </li>
+        {%else%}
+        <li role="presentation">
+            <a href="/">
+                首页
+            </a>
+        </li>
+        {%endif%}
+
+        {%for cate in categories%}
+        {%if category == cate.id%}
+        <li role="presentation" class="active"><a href="/?category={{cate.id}}">{{cate.name}}</a></li>
+        {%else%}
+        <li role="presentation"><a href="/?category={{cate.id}}">{{cate.name}}</a></li>
+        {%endif%}
+        {%endfor%}
+    </ul>
+</div>
+
+{%block content%}
+{%endblock%}
+<div class="col-md-3">
+    <div id="log" class=" panel panel-warning ">
+        <div class="panel-heading">
+            <h3 class="panel-title">个人信息看这里</h3>
+        </div>
+        {%if userInfo._id %}
+        <div id="logout" class="rightBox panel-body">
+            <table>
+                <thead>您好</thead>
+                {%if userInfo.isAdmin%}
+                <tr>
+                    <td><p>亲爱的管理员：</p></td>
+                    <td><p id="admin_username">{{userInfo.username}}</p></td>
+                </tr>
+                <tr>
+                    <td><a href="/admin">进入管理界面</a></td>
+                </tr>
+                {%else%}
+                <tr>
+                    <td><p>亲爱的用户：</p></td>
+                    <td><p id="username">{{userInfo.username}}</p></td>
+                </tr>
+
+                {%endif%}
+                <tr>
+                    <td>
+                        <button id="bt_logout" class="btn btn-warning ">注销</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {%else %}
+        <div id="login" class="rightBox panel-body">
+            <table>
+                <thead>博客登陆</thead>
+                <tr>
+                    <td>用户名:</td>
+                    <td><input type="text" name="login_name" id="login_name"></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><input type="password" name="login_password" id="login_password"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="bt_login" class="btn btn-warning">登陆</button>
+                    </td>
+                    <td>
+                        <button class="bt_reset btn btn-warning pull-right" >重置</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">没有账号？马上<a>注册</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><p class="colWarning textCenter"></p></td>
+                </tr>
+            </table>
+
+        </div>
+        <div id="register" class="rightBox panel-body" style="display: none;">
+            <table>
+                <thead>注册</thead>
+                <tr>
+                    <td>用户名:</td>
+                    <td><input type="text" name="login_name" id="register_name"></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><input type="password" name="login_password" id="register_password"></td>
+                </tr>
+                <tr>
+                    <td>确认密码:</td>
+                    <td><input type="password" name="login_password" id="register_repassword"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="bt_register" class="btn btn-warning">注册</button>
+                    </td>
+                    <td>
+                        <button class="bt_reset btn btn-warning pull-right">重置</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">注册好了，马上<a>登陆</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><p class="colWarning textCenter"></p></td>
+                </tr>
+            </table>
+        </div>
+        {%endif%}
+
+    </div>
+</div>
+
+
+</body>
+</html>

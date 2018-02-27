@@ -1,0 +1,38 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div id="home" class="col-md-7 col-md-offset-2">
+    {%for content in contents%}
+    <div class="listBox panel panel-default">
+        <h1>{{content.title}}</h1>
+        <p class="colDefault">
+            作者:<span class="colInfo">{{content.user.username}}</span>
+            时间:<span class="colInfo">{{content.addTime|date('Y年m月d日 H:i:s',-8*60)}}</span>
+            阅读:<span class="colInfo">{{content.views}}</span>
+            评论:<span class="colInfo">10</span>
+        </p>
+        <dfn><p>{{content.description}}</p></dfn>
+        <a class="btn btn-warning" role="button" href="/view?contentid={{content.id}}">阅读全文</a>
+    </div>
+    {%endfor%}
+    <nav aria-label="Page navigation" style="text-align: center;">
+        <ul class="pagination">
+            <li>
+                <a href="{{ window.location.href}}?category={{category}}&page={{page-1}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {%if pages <= 1%}
+            <li><a>{{page}}/1</a></li>
+            {%else%}
+            <li><a>{{page}}/{{pages}}</a></li>
+            {%endif%}
+            <li>
+                <a href="{{ window.location.href}}?category={{category}}&page={{page+1}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+{%endblock%}
